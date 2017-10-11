@@ -8,9 +8,10 @@ using AlugaLivros.Data;
 namespace AlugaLivros.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171011021439_AdicaoUsuarioEmprestimo")]
+    partial class AdicaoUsuarioEmprestimo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.3")
