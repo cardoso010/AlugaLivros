@@ -20,9 +20,18 @@ namespace AlugaLivros.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtroPesquisa)
         {
-            return View(await _context.Usuario.ToListAsync());
+            ViewBag.filtroPesquisa = filtroPesquisa;
+            var usuarios = from u in _context.Usuario
+                          select u;
+            if (!String.IsNullOrEmpty(filtroPesquisa))
+            {
+                usuarios = usuarios.Where(s => s.Nome.ToUpper().Contains(filtroPesquisa.ToUpper()));
+
+            }
+
+            return View(await usuarios.ToListAsync());
         }
 
         // GET: Usuarios/Details/5
@@ -33,7 +42,8 @@ namespace AlugaLivros.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuario.SingleOrDefaultAsync(m => m.UsuarioID == id);
+            var usuario = await _context.Usuario
+                .SingleOrDefaultAsync(m => m.UsuarioID == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -53,7 +63,7 @@ namespace AlugaLivros.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UsuarioID,Email,Nome,Senha,Telefone")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("UsuarioID,Nome,Telefone,Email,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +95,7 @@ namespace AlugaLivros.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UsuarioID,Email,Nome,Senha,Telefone")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("UsuarioID,Nome,Telefone,Email,Senha")] Usuario usuario)
         {
             if (id != usuario.UsuarioID)
             {
@@ -123,7 +133,8 @@ namespace AlugaLivros.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuario.SingleOrDefaultAsync(m => m.UsuarioID == id);
+            var usuario = await _context.Usuario
+                .SingleOrDefaultAsync(m => m.UsuarioID == id);
             if (usuario == null)
             {
                 return NotFound();

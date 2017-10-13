@@ -11,10 +11,13 @@ namespace AlugaLivros.Models
         public int UsuarioID { get; set; }
         public virtual Usuario Usuario { get; set; }
 
+        [Display(Name = "Data inicio")]
         public string DataInicio { get; set; }
 
+        [Display(Name = "Data fim")]
         public string DataFim { get; set; }
 
+        [Display(Name = "Data devolução")]
         public string DataDevolucao { get; set; }
 
         public ICollection<LivroEmprestimo> LivroEmprestimo { get; set; }

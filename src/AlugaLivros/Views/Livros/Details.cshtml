@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
     <h4>Livro</h4>
@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.Foto)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Foto)
+            <img src="~/@Model.Foto" alt="Imagem @Model.Titulo" />
         </dd>
         <dl class="dl-horizontal">
             <dt>
@@ -56,6 +56,6 @@
         </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.LivroID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.LivroID">Editar</a> |
+    <a asp-action="Index">Voltar</a>
 </div>

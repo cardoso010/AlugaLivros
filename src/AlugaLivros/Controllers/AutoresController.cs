@@ -20,9 +20,18 @@ namespace AlugaLivros.Controllers
         }
 
         // GET: Autores
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtroPesquisa)
         {
-            return View(await _context.Autor.ToListAsync());
+            ViewBag.filtroPesquisa = filtroPesquisa;
+            var autores = from a in _context.Autor
+                          select a;
+            if (!String.IsNullOrEmpty(filtroPesquisa))
+            {
+                autores = autores.Where(s => s.Nome.ToUpper().Contains(filtroPesquisa.ToUpper()));
+
+            }
+
+            return View(await autores.ToListAsync());
         }
 
         // GET: Autores/Details/5
